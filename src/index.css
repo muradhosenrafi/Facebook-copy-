@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-secondary: #1A1A1A; 
+  --font-playwrite:"Playwrite GB J", cursive;
+  --font-monster: "Montserrat", sans-serif;
+  --font-robot: "Roboto", sans-serif;
+  --color-text:#B9C1BE;
+  --color-inptext:#24786D;
+  --color-navtext:#797C7B;
+
+}
+
