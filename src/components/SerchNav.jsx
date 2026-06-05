@@ -10,15 +10,14 @@ const SerchNav = () => {
     
 <div className="relative flex items-center">
 
-      {/* Icon */}
+
       <div
         onClick={() => setOpen(true)}
-        className="w-[44px] h-[44px] rounded-full  border border-text flex items-center justify-center cursor-pointer"
+        className="w-[44px] h-[44px] rounded-full bg- border border-text flex items-center justify-center cursor-pointer"
       >
         <IoSearch className="text-[22px] text-text" />
       </div>
 
-      {/* Input */}
       <input
       className=""
         type="text"
@@ -30,7 +29,7 @@ const SerchNav = () => {
         }}
         placeholder="Search..."
         className={`
-          absolute left-[60px] h-[40px] text-xs font-monster text-text font-semibold rounded-full border border-text px-3 outline-none
+          absolute left-[60px] h-[40px] text-xs font-monster bg-[#000E08] text-text font-semibold rounded-full border border-text px-3 outline-none
           transition-all duration-300
           ${open ? "w-[180px] opacity-100" : "w-0 opacity-0"}
         `}
