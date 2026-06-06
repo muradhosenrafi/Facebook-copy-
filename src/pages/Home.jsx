@@ -8,7 +8,7 @@ const Home = () => {
 <div>
        <div>
          <Nav/>
-        <MessageOption className="-mt-[620px] relative z-10" />
+        <MessageOption className="-mt-[620px]  md:-mt-[450px] lg:-mt-[620px] relative z-10" />
        </div>
     <MenuBar/>
 </div>
