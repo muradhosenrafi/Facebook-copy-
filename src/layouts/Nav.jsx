@@ -20,7 +20,7 @@ const Nav = ({className}) => {
          <h3 className='font-medium text-2xl font-robot text-[#ffff]'>Home</h3>
          <Image src={profile1} alt="profile png"/>
 </div>
-    
+  
 
 
     <Flex className='justify-between px-5 py-10'>

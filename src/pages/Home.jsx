@@ -5,7 +5,9 @@
 // import Nav from '../layouts/Nav'
 
 
-import Group from "../layouts/Group"
+// import Group from "../layouts/Group"
+import Settings from '../layouts/Settings';
+import MenuBar from './../layouts/MenuBar';
 
 
 
@@ -19,9 +21,9 @@ const Home = () => {
        </div> */}
 {/* 
       <ShareContatent/> 
-    <MenuBar/> */}
-<Group/>
-
+{/* <Group/> */}
+<Settings/>
+    <MenuBar/> 
 </div>
   )
 } 
