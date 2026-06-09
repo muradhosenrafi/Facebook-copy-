@@ -5,6 +5,7 @@ import facebok from "../assets/facebook.png"
 import google from "../assets/googl.png"
 import appol from "../assets/appol.png"
 import Button from "../components/Button"
+import { Link } from "react-router-dom"
 
 
 
@@ -31,10 +32,10 @@ const FontPage = () => {
     <div className="h-[1px] w-[132px] bg-text"></div> <div className="font-monster text-base text-text ">OR</div> <div className="h-[1px] w-[132px] bg-text"></div>
 </div>
 
-<Button text="Sign up with mail"/>
+<Link to="/singup"><Button text="Sign up with mail"/></Link>
 
 <div>
-    <p className="font-monster gap-2 text-xs py-[40px] justify-center flex font-medium text-text">Existing account? <span className="font-bold cursor-pointer"> Log in</span></p>
+    <p className="font-monster gap-2 text-xs py-[40px] justify-center flex font-medium text-text">Existing account? <Link to="/login"><span className="font-bold cursor-pointer"> Login</span></Link></p>
 </div>
      </div>
     </Container>

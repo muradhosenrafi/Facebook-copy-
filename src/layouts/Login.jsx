@@ -6,13 +6,14 @@ import google from "../assets/god.png"
 import appol from "../assets/whit1.png"
 import Image from "../components/Image"
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
 <section>
     <Container>
             <div className="py-[61px] pl-[38px]">
-             <CgArrowLeft className="text-3xl cursor-pointer" />
+            <Link to="/fontpage"> <CgArrowLeft className="text-3xl cursor-pointer" /></Link>
              </div>
 
 <div className="flex flex-col justify-center items-center">

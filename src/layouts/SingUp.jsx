@@ -2,6 +2,7 @@ import { CgArrowLeft } from "react-icons/cg";
 import Container from "../components/Container";
 import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 
 
@@ -10,7 +11,7 @@ const SingUp = () => {
     <section>
     <Container>
             <div className="pt-[61px] pl-[38px]">
-             <CgArrowLeft className="text-3xl cursor-pointer" />
+           <Link to="/fontpage"><CgArrowLeft className="text-3xl cursor-pointer" /></Link>
              </div>
 
 <div className="flex flex-col justify-center py-[60px] items-center">
@@ -27,10 +28,10 @@ const SingUp = () => {
              <Infutbox className="" type="password" text="Confirm Password"/>
 
      <div className=" text-center">
-              <Button 
+     <Link to="/home"><Button 
              className="pt-[121px] pb-[40px]"
              text="Create an account"
-             />
+             /></Link>
     
      </div>
     </Container>
