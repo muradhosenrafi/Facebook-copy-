@@ -13,10 +13,8 @@ import Nav from '../layouts/Nav'
 const Home = () => {
   return (
 <div>
-       <div>
+       <div className='relative min-h-screen'>
          <Nav/>
-        <MessageOption className="-mt-[620px] relative z-10" />
-      
        <MenuBar />
        </div> 
 {/* 

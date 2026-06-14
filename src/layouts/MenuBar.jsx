@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 
 const MenuBar = () => {
   return (
-  <section  className="sticky top-0 z-50">
+  <section  className="fixed bottom-0 w-full z-50 ">
     <Container className="">
-     <div className="w-full bg-black shadow-lg py-5 px-5">
-        <Flex className="justify-between">
+     <div className="w-full bg-black shadow-lg  px-5">
+        <Flex className="justify-between items-center">
   <div className="flex group cursor-pointer flex-col items-center">
     <RiMessage3Fill className="w-[26px] h-[26px] text-navtex  text-navtext group-hover:text-inptext duration-300" />
     <p className="font-medium text-base text-navtext group-hover:text-inptext duration-300 group-hover:font-medium font-robot">Message</p>
@@ -34,7 +34,7 @@ const MenuBar = () => {
     <p className="font-medium text-base text-navtext group-hover:text-inptext duration-300 group-hover:font-medium  font-robot">Settings</p>
   </div>
 </Link>
-     <div className="h-[80px]"></div>
+     {/* <div className="h-[80px]"></div> */}
 </Flex>
      </div>
     </Container>

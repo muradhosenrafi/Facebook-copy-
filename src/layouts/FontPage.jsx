@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 
 const FontPage = () => {
   return (
-  <section className="py-5">
+  <section className="">
      <Container>
      <div className="w-full bg-secondary h-full">
     <div className="items-center pt-[60px] justify-center flex">
