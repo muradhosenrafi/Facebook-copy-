@@ -22,21 +22,24 @@ const Settings = () => {
                 <div className="relative flex items-center justify-center pt-[61px]">
   
   <div className="absolute left-[0px]">
-    <CgArrowLeft className="text-3xl cursor-pointer text-white" />
+    <CgArrowLeft className="text-3xl hover:scale-110 hover:-translate-x-1  transition-transform duration-300 cursor-pointer text-white" />
   </div>
 
   <h1 className="text-center font-robot text-[20px] font-medium text-white">Settings</h1>
 </div>
 
 </div>
-    <div className="bg-amber-400 rounded-t-4xl">
+    <div className=" rounded-t-4xl bg-white">
+     <div className="flex items-center justify-center pt-3">
+       <div className="w-[30px] h-[3px] bg-[#E6E6E6] rounded-full"></div>
+     </div>
       <div className="flex justify-between items-center px-5 pt-[50px]">
      <div className="flex gap-4">
          <div className="h-[60px] w-[60px] rounded-full ">
           <Image src={frofile}/>
         </div>
         <div>
-          <h1 className="font-bold text-xl font-robot ">Nazrul Islam</h1>
+          <h1 className="font-bold text-xl font-robot">Nazrul Islam</h1>
           <p className="font-normal text-base font-robot text-navtext">Never give up 💪</p>
         </div>
      </div>
@@ -45,7 +48,7 @@ const Settings = () => {
       </div>
 
       </div>
-      <div className="w-[375px] h-[1px] bg-[#F5F6F6] mt-5 "></div>
+      <div className="w-full h-[1px] bg-[#F5F6F6] mt-5 "></div>
   <SettingCard 
   icon={<LiaKeySolid />}
   className=""

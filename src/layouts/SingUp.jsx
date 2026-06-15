@@ -11,7 +11,7 @@ const SingUp = () => {
     <section>
     <Container>
             <div className="pt-[61px] pl-[38px]">
-           <Link to="/fontpage"><CgArrowLeft className="text-3xl cursor-pointer" /></Link>
+           <Link to="/"><CgArrowLeft className="text-3xl cursor-pointer  hover:scale-110 hover:-translate-x-1  transition-transform duration-300 " /></Link>
              </div>
 
 <div className="flex flex-col justify-center py-[60px] items-center">

@@ -23,7 +23,7 @@ const Group = () => {
             <div className="relative flex items-center justify-center pt-[61px]">
   
   <div className="absolute left-[0px]">
-    <CgArrowLeft className="text-3xl cursor-pointer" />
+    <CgArrowLeft className="text-3xl hover:scale-110 hover:-translate-x-1  transition-transform duration-300 cursor-pointer" />
   </div>
 
   <h1 className="text-center font-robot text-base font-medium">Create Group</h1>

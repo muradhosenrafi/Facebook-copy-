@@ -13,7 +13,7 @@ const Login = () => {
 <section>
     <Container>
             <div className="py-[61px] pl-[38px]">
-            <Link to="/fontpage"> <CgArrowLeft className="text-3xl cursor-pointer" /></Link>
+            <Link to="/"> <CgArrowLeft className="text-3xl  hover:scale-110 hover:-translate-x-1  transition-transform duration-300  cursor-pointer " /></Link>
              </div>
 
 <div className="flex flex-col justify-center items-center">

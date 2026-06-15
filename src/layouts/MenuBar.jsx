@@ -23,10 +23,13 @@ const MenuBar = () => {
     <p className="font-medium text-base text-navtext group-hover:text-inptext duration-300 group-hover:font-medium font-robot">Notification</p>
   </div>
 
+<Link to="/grouppage">
   <div className="flex group cursor-pointer flex-col items-center">
     <FaUserGroup className="w-[26px] h-[26px] text-navtext group-hover:text-inptext duration-300 " />
     <p className="font-medium text-base text-navtext group-hover:text-inptext duration-300 group-hover:font-medium  font-robot">Group</p>
   </div>
+
+</Link>
 
 <Link to="/setting">
   <div className="flex group cursor-pointer flex-col items-center">
