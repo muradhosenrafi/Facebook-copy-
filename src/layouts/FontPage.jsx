@@ -35,10 +35,10 @@ setTimeout(()=>{
 
   return (
     
-  <section className="">
+  <section className=" bg-secondary">
 
-     <Container>
-     <div className="w-full bg-secondary h-full">
+     <Container className="w-full">
+     <div >
     <div className="items-center pt-[60px] justify-center flex">
         <Image className="w-[100px]" src={logo} alt="Logo png"/>
     </div>
