@@ -2,13 +2,14 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { BsEye } from "react-icons/bs";
 import { useState } from "react";
 
-const Infutbox = ({ className, text, type }) => {
+const Infutbox = ({ className, text, type, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className={`justify-center items-center flex ${className}`}>
       <div className="relative w-[337px]">
         <input
+        onChange={onChange}
           type={
             type === "password"
               ? showPassword

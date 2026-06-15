@@ -3,10 +3,91 @@ import Container from "../components/Container";
 import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 
 const SingUp = () => {
+  let [name,setName]=useState("")
+  let [email,setEmail]=useState("")
+  let [password,setPassword]=useState("")
+  let [conformpassword,setConformPassword]=useState("")
+
+
+  let [nameError,setNameError]=useState("")
+  let [emailError,setEmailError]=useState("")
+  let [passwordError,setPasswordError]=useState("")
+  let [conformpasswordError,setConformPasswordError]=useState("")
+
+  let EmailRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  let LowrCase =/^(?=.*[a-z])/
+  let UpperCase =/(?=.*[A-Z])/
+  let Digit =/(?=.*\d)/
+  let special  =/(?=.*[@$!%*?&])/
+  let characters   =/[A-Za-z\d@$!%*?&]{8,}$/
+
+let handleName =(e)=>{
+  setName (e.target.value)
+  setNameError ("")
+}
+
+let handleEmail =(e)=>{
+  setEmail (e.target.value)
+  setEmailError ("")
+}
+
+let handlePassword =(e)=>{
+  setPassword (e.target.value)
+  setPasswordError ("")
+}
+
+let handleConformPassword=(e)=>{
+  setConformPassword (e.target.value)
+  setConformPasswordError ("")
+}
+
+
+
+  let handleSingup =()=>{
+    if(!name){
+      setNameError("Please Enter Your Name");
+    }
+    if(!email){
+      setEmailError("Please Enter Your Email");
+    }if(!EmailRejex.test(email)){
+      setEmailError("Please enter a valid email address")
+    }
+    
+    if(!password){
+      setPasswordError("Please Enter Your Password");
+    }if(!LowrCase.test(password)){
+  setPasswordError("One Lowercase Letter")
+}if(!UpperCase.test(password)){
+  setPasswordError("One Uppercase Letter")
+}if(!Digit.test(password)){
+  setPasswordError("One Digit (?=.*d)")
+}if(!special.test(password)){
+  setPasswordError("One Special Letter")
+}if(!characters.test(password)){
+  setPasswordError("Password must contain at least 8 characters")
+}else{
+  console.log("submit");
+  
+}
+
+    
+    
+    if(!conformpassword){
+      setConformPasswordError("Please Confirm Your Password");
+    }else if (password !== conformpassword){
+      setConformPasswordError("Passwords do not match")
+    }
+    
+
+
+  }
+
+
   return (
     <section>
     <Container>
@@ -22,13 +103,36 @@ const SingUp = () => {
 </div>
 
 
-             <Infutbox className="py-[30px]" type="text" text="Your name"/>
-             <Infutbox className="" type="email" text="Your email"/>
-             <Infutbox className="py-[30px]" type="password" text="Password"/>
-             <Infutbox className="" type="password" text="Confirm Password"/>
+           
+ 
+               <Infutbox onChange={handleName} className="pt-[30px]" type="text" text="Your name"/>
+
+               {
+                 nameError && 
+                 <p className=" mt-2 ml-11 text-red-500  mb-5 font-robot text-xs">{nameError}</p>
+               }
+               
+             <Infutbox onChange={handleEmail} className="mt-10" type="email" text="Your email"/>
+
+             {emailError &&
+              <p className=" mt-2 ml-11 text-red-500  mb-5 font-robot text-xs">{emailError}</p>
+             }
+
+             <Infutbox onChange={handlePassword} className="mt-10" type="password" text="Password"/>
+    
+             { passwordError &&
+              <p className=" mt-2 ml-11 text-red-500  mb-5 font-robot text-xs">{passwordError}</p>
+             }
+
+             <Infutbox onChange={handleConformPassword} className="mt-10" type="password" text="Confirm Password"/>
+             {
+              conformpasswordError &&
+              <p className=" mt-2 ml-11 text-red-500  mb-5 font-robot text-xs">{conformpasswordError}</p>
+             }
+         
 
      <div className=" text-center">
-     <Link to="/home"><Button 
+     <Link ><Button onClick={handleSingup}
              className="pt-[121px] pb-[40px]"
              text="Create an account"
              /></Link>
