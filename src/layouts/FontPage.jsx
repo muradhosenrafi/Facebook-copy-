@@ -44,7 +44,7 @@ setTimeout(()=>{
     </div>
     <div className="pt-[50px] justify-center items-center flex flex-col">
       <h1 className="text-[68px] w-[338px] text-[#ffff] font-medium leading-[85px]  font-playwrite ">Connect friends easily <span className="text-[68px] w-[338px] text-[#765599] font-bold leading-[78px] font-playwrite">& </span>quickly</h1>
-      <p className="w-[390px] ml-9 pt-10 font-monster text-base text-text ">Our chat app is the perfect way to stay connected with friends and family.</p>
+      <p className=" ml-9 pt-10 font-monster text-base text-text ">Our chat app is the perfect way to stay connected with friends and family.</p>
     </div>
 
 <div className="gap-5 flex justify-center items-center pt-10">
