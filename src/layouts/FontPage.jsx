@@ -5,13 +5,38 @@ import facebok from "../assets/facebook.png"
 import google from "../assets/googl.png"
 import appol from "../assets/appol.png"
 import Button from "../components/Button"
-import { Link } from "react-router-dom"
-
-
+import {useNavigate} from "react-router-dom"
+import Loader from "../components/Loader"
+import { useState } from "react";
 
 const FontPage = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  
+const handleSignup =()=>{
+  setLoading(true);
+
+setTimeout(()=>{
+
+    navigate("/singup");
+
+},1000);
+}
+const handleLoging =()=>{
+  setLoading(true);
+
+setTimeout(()=>{
+
+    navigate("/login");
+
+},1000);
+}
+
+
   return (
+    
   <section className="">
+
      <Container>
      <div className="w-full bg-secondary h-full">
     <div className="items-center pt-[60px] justify-center flex">
@@ -31,11 +56,13 @@ const FontPage = () => {
 <div className="flex gap-6 pt-10 justify-center items-center">
     <div className="h-[1px] w-[132px] bg-text"></div> <div className="font-monster text-base text-text ">OR</div> <div className="h-[1px] w-[132px] bg-text"></div>
 </div>
-
-<Link to="/singup"><Button text="Sign up with mail"/></Link>
+{
+  loading && <Loader/>
+}
+<Button  onClick={handleSignup} text="Sign up with mail"/>
 
 <div>
-    <p className="font-monster gap-2 text-xs py-[40px] justify-center flex font-medium text-text">Existing account? <Link to="/login"><span className="font-bold cursor-pointer"> Login</span></Link></p>
+    <p className="font-monster gap-2 text-xs py-[40px] justify-center flex font-medium text-text">Existing account?<span onClick={handleLoging} className="font-bold cursor-pointer"> Login</span></p>
 </div>
      </div>
     </Container>
