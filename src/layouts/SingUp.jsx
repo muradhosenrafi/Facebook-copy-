@@ -4,10 +4,17 @@ import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import toast from "react-hot-toast";
+import Loader from "../components/Loader";
 
 
 
 const SingUp = () => {
+ const [loading, setLoading] = useState(false);
+
+const auth = getAuth();
+
   let [name,setName]=useState("")
   let [email,setEmail]=useState("")
   let [password,setPassword]=useState("")
@@ -19,7 +26,8 @@ const SingUp = () => {
   let [passwordError,setPasswordError]=useState("")
   let [conformpasswordError,setConformPasswordError]=useState("")
 
-  let EmailRejex = /^[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  
+  let EmailRejex =  /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
   let LowrCase =/^(?=.*[a-z])/
   let UpperCase =/(?=.*[A-Z])/
   let Digit =/(?=.*\d)/
@@ -49,40 +57,73 @@ let handleConformPassword=(e)=>{
 
 
   let handleSingup =()=>{
-    if(!name){
-      setNameError("Please Enter Your Name");
-    }
-    if(!email){
-      setEmailError("Please Enter Your Email");
-    }if(!EmailRejex.test(email)){
-      setEmailError("Please enter a valid email address")
-    }
-    
-    if(!password){
-      setPasswordError("Please Enter Your Password");
-    }if(!LowrCase.test(password)){
-  setPasswordError("One Lowercase Letter")
-}if(!UpperCase.test(password)){
-  setPasswordError("One Uppercase Letter")
-}if(!Digit.test(password)){
-  setPasswordError("One Digit (?=.*d)")
-}if(!special.test(password)){
-  setPasswordError("One Special Letter")
-}if(!characters.test(password)){
-  setPasswordError("Password must contain at least 8 characters")
-}else{
-  console.log("submit");
-  
+
+if (!name) {
+  setNameError("Please Enter Your Name");
+  return;
 }
 
+if (!email) {
+  setEmailError("Please Enter Your Email");
+  return;
+}
+if (!EmailRejex.test(email)) {
+  setEmailError("Please enter a valid Gmail address");
+  return;
+}
     
-    
-    if(!conformpassword){
-      setConformPasswordError("Please Confirm Your Password");
-    }else if (password !== conformpassword){
+
+if (!password) {
+  setPasswordError("Please Enter Your Password");
+  return;
+}
+
+if(!LowrCase.test(password)){
+  setPasswordError("One Lowercase Letter")
+    return;
+}
+if(!UpperCase.test(password)){
+  setPasswordError("One Uppercase Letter")
+    return;
+}
+if(!Digit.test(password)){
+  setPasswordError("One Digit (?=.*d)")
+    return;
+}
+if(!special.test(password)){
+  setPasswordError("One Special Letter")
+    return;
+}
+if(!characters.test(password)){
+  setPasswordError("Password must contain at least 8 characters")
+    return;
+}
+if (!conformpassword) {
+  setConformPasswordError("Please Confirm Your Password");
+  return;
+}
+
+ if (password !== conformpassword){
       setConformPasswordError("Passwords do not match")
+        return;
     }
-    
+
+    // firebase conect
+
+  setLoading(true);
+   createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    setTimeout(() => {
+      setLoading(false);
+      toast.success("Account Created Successfully!");
+    }, 20000);
+  })
+  .catch((error) => {
+    setTimeout(() => {
+      setLoading(false);
+      toast.error(error.message);
+    }, 1000);
+  }); 
 
 
   }
@@ -132,10 +173,16 @@ let handleConformPassword=(e)=>{
          
 
      <div className=" text-center">
-     <Link ><Button onClick={handleSingup}
+     {
+  loading ? (
+    <Loader/>
+  ) : (
+          <Button onClick={handleSingup}
              className="pt-[121px] pb-[40px]"
-             text="Create an account"
-             /></Link>
+             text={"Create an account"}
+             />
+  )
+}
     
      </div>
     </Container>
