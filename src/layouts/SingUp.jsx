@@ -58,73 +58,93 @@ let handleConformPassword=(e)=>{
 
   let handleSingup =()=>{
 
+  setNameError("");
+  setEmailError("");
+  setPasswordError("");
+  setConformPasswordError("");
+
+
 if (!name) {
   setNameError("Please Enter Your Name");
-  return;
+
 }
 
 if (!email) {
   setEmailError("Please Enter Your Email");
-  return;
+  
 }
 if (!EmailRejex.test(email)) {
   setEmailError("Please enter a valid Gmail address");
-  return;
+ 
 }
     
 
 if (!password) {
   setPasswordError("Please Enter Your Password");
-  return;
+  
 }
 
 if(!LowrCase.test(password)){
   setPasswordError("One Lowercase Letter")
-    return;
+    
 }
 if(!UpperCase.test(password)){
   setPasswordError("One Uppercase Letter")
-    return;
+    
 }
 if(!Digit.test(password)){
   setPasswordError("One Digit (?=.*d)")
-    return;
+    
 }
 if(!special.test(password)){
   setPasswordError("One Special Letter")
-    return;
+    
 }
 if(!characters.test(password)){
   setPasswordError("Password must contain at least 8 characters")
-    return;
+    
 }
 if (!conformpassword) {
   setConformPasswordError("Please Confirm Your Password");
-  return;
+  
 }
 
  if (password !== conformpassword){
       setConformPasswordError("Passwords do not match")
-        return;
+        
     }
 
     // firebase conect
 
-  setLoading(true);
-   createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Account Created Successfully!");
-    }, 20000);
-  })
-  .catch((error) => {
-    setTimeout(() => {
-      setLoading(false);
-      toast.error(error.message);
-    }, 1000);
-  }); 
 
+   createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+
+    toast.success("Account Created Successfully!");
+     setName("");
+      setEmail("");
+      setPassword("");
+      setConformPassword("");
+
+  })
+   .catch((error) => {
+
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          toast.error("Email already in use!");
+          break;
+
+        case "auth/invalid-email":
+          toast.error("Invalid Email Address!");
+          break;
+
+        case "auth/weak-password":
+          toast.error("Password is too weak!");
+          break;
+
+      }
+
+    });
 
   }
 

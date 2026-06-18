@@ -23,7 +23,7 @@ if (!email){
 setEmailError ("Please enter a valid email address")
 
 }else{
-     toast.success('Successfully logged in!');
+     toast.success('Successfully Forgot!');
     onClose();
 }
 
@@ -58,7 +58,7 @@ setEmailError ("Please enter a valid email address")
 
           <button
               onClick={handleSendbtn}
-            className="w-full bg-blue-500 text-base font-semibold border-text hover:text-white hover:bg-red-500  cursor-pointer duration-300 font-robot  text-white py-3 rounded-lg"
+            className="w-full bg-blue-500  text-base font-semibold border-text hover:text-white hover:bg-green-500  cursor-pointer duration-300 font-robot  text-white py-3 rounded-lg"
           >
             Send Link
           </button>
