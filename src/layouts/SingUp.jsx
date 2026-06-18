@@ -66,52 +66,49 @@ let handleConformPassword=(e)=>{
 
 if (!name) {
   setNameError("Please Enter Your Name");
-
+  return;
 }
 
-if (!email) {
+else if (!email) {
   setEmailError("Please Enter Your Email");
-  
+    return;
 }
-if (!EmailRejex.test(email)) {
+else if (!EmailRejex.test(email)) {
   setEmailError("Please enter a valid Gmail address");
- 
+   return;
 }
     
 
-if (!password) {
+else if (!password) {
   setPasswordError("Please Enter Your Password");
-  
+    return;
 }
 
 if(!LowrCase.test(password)){
   setPasswordError("One Lowercase Letter")
-    
+      return;
 }
 if(!UpperCase.test(password)){
   setPasswordError("One Uppercase Letter")
-    
+      return;
 }
 if(!Digit.test(password)){
   setPasswordError("One Digit (?=.*d)")
-    
+      return;
 }
 if(!special.test(password)){
   setPasswordError("One Special Letter")
-    
+      return;
 }
 if(!characters.test(password)){
   setPasswordError("Password must contain at least 8 characters")
-    
+      return;
 }
-if (!conformpassword) {
-  setConformPasswordError("Please Confirm Your Password");
-  
-}
+
 
  if (password !== conformpassword){
       setConformPasswordError("Passwords do not match")
-        
+         return; 
     }
 
     // firebase conect
