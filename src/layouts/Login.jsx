@@ -109,7 +109,7 @@ signInWithEmailAndPassword(auth, email, password)
 
       <Container>
         <div className="py-[61px] pl-[38px]">
-          <Link to="/"> 
+          <Link to="/fontpage"> 
             <CgArrowLeft className="text-3xl hover:scale-110 hover:-translate-x-1 transition-transform duration-300 cursor-pointer " />
           </Link>
         </div>

@@ -2,7 +2,7 @@ import { CgArrowLeft } from "react-icons/cg";
 import Container from "../components/Container";
 import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
@@ -19,7 +19,7 @@ const auth = getAuth();
   let [email,setEmail]=useState("")
   let [password,setPassword]=useState("")
   let [conformpassword,setConformPassword]=useState("")
-
+  let navigate=useNavigate()
 
   let [nameError,setNameError]=useState("")
   let [emailError,setEmailError]=useState("")
@@ -122,6 +122,8 @@ if(!characters.test(password)){
       setEmail("");
       setPassword("");
       setConformPassword("");
+      setLoading(true)
+       navigate ("/login");
 
   })
    .catch((error) => {
@@ -150,7 +152,7 @@ if(!characters.test(password)){
     <section>
     <Container>
             <div className="pt-[61px] pl-[38px]">
-           <Link to="/"><CgArrowLeft className="text-3xl cursor-pointer  hover:scale-110 hover:-translate-x-1  transition-transform duration-300 " /></Link>
+           <Link to="/fontpage"><CgArrowLeft className="text-3xl cursor-pointer  hover:scale-110 hover:-translate-x-1  transition-transform duration-300 " /></Link>
              </div>
 
 <div className="flex flex-col justify-center py-[60px] items-center">

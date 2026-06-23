@@ -2,6 +2,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
 
 const ForgetPassword = ({ show, onClose }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +18,9 @@ const auth = getAuth();
     setEmailError("");
   };
 
-  const handleSendbtn = () => {
+  const handleSendbtn = async () => {
+    setEmailError("");
+
     if (!email) {
       return setEmailError("Please enter your email address")     
     }
@@ -25,26 +29,49 @@ const auth = getAuth();
       return setEmailError("Please enter a valid email address");
      
     }
+ try {
 
-    toast.success("Successfully Forgot!");
+    const db = getFirestore();
 
+    const usersRef = collection(db, "users");
 
+    const snapshot = await getDocs(usersRef);
 
-sendPasswordResetEmail(auth, email)
-  .then(() => {
-  setEmail("");
-    onClose("");
-    
+    console.log(
+  snapshot.docs.map(doc => doc.data())
+);
 
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    const userExists = snapshot.docs.some(
+      (doc) =>
+        doc.data().email.toLowerCase() ===
+        email.toLowerCase()
+    );
 
-  });
+    if (!userExists) {
+      toast.error("This email is not registered!");
+      return;
+    }
 
+    await sendPasswordResetEmail(auth, email);
 
-  };
+    toast.success(
+      "Password reset link sent successfully!"
+    );
+
+    setEmail("");
+
+    setTimeout(() => {
+      onClose();
+    }, 1500);
+
+  } catch (error) {
+
+    console.log(error);
+
+    toast.error("Something went wrong!");
+  }
+};
+
 
 
   return (

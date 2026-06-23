@@ -13,14 +13,14 @@ import GroupPage from './pages/GroupPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
 <>
-    <Route path="/" element={<FontPage/>} ></Route>
+    <Route path="/fontpage" element={<FontPage/>} ></Route>
     <Route path="/home" element={<Home/>} ></Route>
     <Route path="/grouppage" element={<GroupPage/>} ></Route>
     <Route path="/login" element={<Login/>} ></Route>
     <Route path="/singup" element={<SingUp/>} ></Route>
     <Route path="/setting" element={<Settings/>} ></Route>
     <Route path="/sharecontatent" element={<ShareContatent/>} ></Route>
-    <Route path="/splash" element={<Splash/>} ></Route>
+    <Route path="/" element={<Splash/>} ></Route>
 </>
   )
 );
