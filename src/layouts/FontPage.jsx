@@ -8,8 +8,11 @@ import Button from "../components/Button"
 import {useNavigate} from "react-router-dom"
 import Loader from "../components/Loader"
 import { useState } from "react";
+import { getAuth, signInWithPopup,GoogleAuthProvider} from "firebase/auth"
+import toast from "react-hot-toast"
 
 const FontPage = () => {
+  const auth = getAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   
@@ -32,7 +35,24 @@ setTimeout(()=>{
 },1000);
 }
 
+let handleGoogle =()=>{
+const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+  .then((result) => {
 
+toast.success("Login Successful");
+setTimeout(() => {
+  navigate("/home");
+}, 1000);
+
+  }).catch((error) => {
+  console.log(error);
+
+
+  });
+
+  
+}
   return (
     
   <section className=" bg-secondary">
@@ -49,7 +69,7 @@ setTimeout(()=>{
 
 <div className="gap-5 flex justify-center items-center pt-10">
 <Image className="cursor-pointer" src={facebok}/>
-  <Image className="cursor-pointer" src={google}/>
+  <Image onClick={handleGoogle} className="cursor-pointer" src={google}/>
   <Image className="cursor-pointer" src={appol}/>
 </div>
 

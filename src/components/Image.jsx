@@ -1,9 +1,9 @@
 
 
-const Image = ({src,alt,className}) => {
+const Image = ({src,alt,className,onClick}) => {
   return (
     <div>
-        <img className={`max-w-full h-auto ${className}`} src={src} alt={alt} />
+        <img onClick={onClick} className={`max-w-full h-auto ${className}`} src={src} alt={alt} />
     </div>
   )
 }

@@ -8,11 +8,11 @@ import Image from "../components/Image";
 import Button from "../components/Button";
 import { Link, useNavigate,} from "react-router-dom";
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,signInWithPopup} from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
-
 import ForgetPassword from "../components/ForgetPassword";
 import Loader from "../components/Loader";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
  
@@ -102,6 +102,25 @@ signInWithEmailAndPassword(auth, email, password)
     }
   };
 
+  let handelGoogle =()=>{
+
+const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+  .then((result) => {
+
+toast.success("Login Successful");
+setTimeout(() => {
+  navigate("/home");
+}, 1000);
+
+  }).catch((error) => {
+  console.log(error);
+
+
+  });
+
+    
+  }
   return (
     <section>
      
@@ -125,7 +144,7 @@ signInWithEmailAndPassword(auth, email, password)
 
         <div className="gap-5 flex justify-center items-center pt-[30px]">
           <Image className="cursor-pointer" src={facebok} />
-          <Image className="cursor-pointer" src={google} />
+          <Image onClick={handelGoogle} className="cursor-pointer" src={google} />
           <Image className="cursor-pointer" src={appol} />
         </div>
 

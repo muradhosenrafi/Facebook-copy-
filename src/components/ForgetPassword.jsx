@@ -2,78 +2,56 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
 
 const ForgetPassword = ({ show, onClose }) => {
+  const auth = getAuth();
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-
-  const EmailRejex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-const auth = getAuth();
-
-
+  let EmailRejex =  /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setEmailError("");
   };
 
-  const handleSendbtn = async () => {
-    setEmailError("");
+const handleSendbtn = () => {
 
-    if (!email) {
-      return setEmailError("Please enter your email address")     
-    }
-
-    if (!EmailRejex.test(email)) {
-      return setEmailError("Please enter a valid email address");
-     
-    }
- try {
-
-    const db = getFirestore();
-
-    const usersRef = collection(db, "users");
-
-    const snapshot = await getDocs(usersRef);
-
-    console.log(
-  snapshot.docs.map(doc => doc.data())
-);
-
-    const userExists = snapshot.docs.some(
-      (doc) =>
-        doc.data().email.toLowerCase() ===
-        email.toLowerCase()
-    );
-
-    if (!userExists) {
-      toast.error("This email is not registered!");
-      return;
-    }
-
-    await sendPasswordResetEmail(auth, email);
-
-    toast.success(
-      "Password reset link sent successfully!"
-    );
-
-    setEmail("");
-
-    setTimeout(() => {
-      onClose();
-    }, 1500);
-
-  } catch (error) {
-
-    console.log(error);
-
-    toast.error("Something went wrong!");
+  if (!email) {
+    setEmailError("Please Enter Your Email");
+    return;
   }
+
+  if (!EmailRejex.test(email)) {
+    setEmailError("Please enter a valid Gmail address");
+    return;
+  }
+
+  sendPasswordResetEmail(auth, email)
+    .then((result) => {
+      toast.success("Password reset link sent to your email.");
+      setEmail("");
+      onClose();
+
+    })
+    .catch((error) => {
+      switch (error.code) {
+        case "auth/user-not-found":
+           toast.error("No user found with this email.");
+          break;
+
+        case "auth/invalid-email":
+           toast.error("Invalid email address.");
+          break;
+ 
+          case "auth/too-many-requests":
+          toast.error("Too many requests. Please try again later.");
+          break;
+
+        default:
+          setEmailError(error.message);
+      }
+    });
 };
-
-
-
   return (
     <AnimatePresence>
       {show && (
