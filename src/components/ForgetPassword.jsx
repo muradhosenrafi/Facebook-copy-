@@ -8,50 +8,37 @@ const ForgetPassword = ({ show, onClose }) => {
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-  let EmailRejex =  /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+// const EmailRejex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setEmailError("");
   };
 
+  // problme----------------------
 const handleSendbtn = () => {
 
-  if (!email) {
-    setEmailError("Please Enter Your Email");
-    return;
-  }
-
-  if (!EmailRejex.test(email)) {
-    setEmailError("Please enter a valid Gmail address");
-    return;
-  }
-
-  sendPasswordResetEmail(auth, email)
-    .then((result) => {
-      toast.success("Password reset link sent to your email.");
-      setEmail("");
-      onClose();
-
-    })
-    .catch((error) => {
-      switch (error.code) {
-        case "auth/user-not-found":
-           toast.error("No user found with this email.");
-          break;
-
-        case "auth/invalid-email":
-           toast.error("Invalid email address.");
-          break;
- 
-          case "auth/too-many-requests":
-          toast.error("Too many requests. Please try again later.");
-          break;
-
-        default:
-          setEmailError(error.message);
-      }
-    });
+sendPasswordResetEmail(auth, email)
+  .then((result) => {
+   
+   if(result==null){
+    toast.error("Invalid Cradentaial")
+   }
+    
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    if(errorCode.includes("auth/too-many-requests")){
+      toast.success("email gace")
+      console.log(errorCode.includes);
+      
+    }
+    console.log(errorCode);
+    console.log();
+    
+    
+  });
 };
+  // problme----------------------------------
   return (
     <AnimatePresence>
       {show && (

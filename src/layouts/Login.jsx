@@ -65,9 +65,9 @@ const [loading, setLoading] = useState(false);
 
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    toast.success("Login Successful");
-
-
+  if(userCredential.user.emailVerified){
+     toast.success("Login Successful");
+    
     setTimeout(()=>{
       setLoading(true);
     },1000);
@@ -75,6 +75,13 @@ signInWithEmailAndPassword(auth, email, password)
     setTimeout(()=>{
       navigate ("/home");
     },3000);
+
+  }else{
+      toast.error("Please verify your email.");
+  }
+   
+
+
 
   })
   .catch((error) => {

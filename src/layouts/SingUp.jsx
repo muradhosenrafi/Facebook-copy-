@@ -4,7 +4,7 @@ import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,} from "firebase/auth";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 
@@ -116,7 +116,11 @@ if(!characters.test(password)){
 
    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-
+     
+   sendEmailVerification(auth.currentUser)
+   
+  // console.log(userCredential.user);
+  
     toast.success("Account Created Successfully!");
      setName("");
       setEmail("");
