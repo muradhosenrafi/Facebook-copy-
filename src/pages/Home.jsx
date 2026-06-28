@@ -1,6 +1,6 @@
- import MenuBar from '../layouts/MenuBar'
+
 // import ShareContatent from '../layouts/ShareContatent'
-import MessageOption from '../layouts/MessageOption'
+
 import Nav from '../layouts/Nav'
 
 
@@ -12,23 +12,10 @@ import Nav from '../layouts/Nav'
 
 const Home = () => {
   return (
-<div>
-       <div className='relative min-h-screen'>
+      <div>
          <Nav/>
-       <MenuBar />
        </div> 
-{/* 
-      <ShareContatent/> 
-{/* <Group/> */}
-  {/* <div className="h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto">
-       
-        <Settings/>
-      </div>
-       <div className="sticky top-0 z-50">
-      </div>
-</div> */}
-</div>
+
   )
 } 
 
