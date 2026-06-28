@@ -16,7 +16,7 @@ const Nav = ({className}) => {
 <nav>
     <Container className={`bg-[#000E08] w-full min-h-screen   ${className}`}>
 <div className='flex justify-between items-center pt-[61px] px-[24px] pb-[40px] '>
-         <SerchNav/>
+         <SerchNav right="left-[60px]"/>
          <h3 className='font-medium text-2xl font-robot text-[#ffff]'>Home</h3>
          <Image src={profile1} alt="profile png"/>
 </div>

@@ -18,7 +18,7 @@ const Settings = () => {
 <section className="min-h-screen">
   <Container className="bg-[#000E08] w-full flex flex-col h-full">
 
-<div className="py-[52px] flex-shrink-0">
+<div className="my-[52px] flex-shrink-0">
                 <div className="relative flex items-center justify-center pt-[61px]">
   
   <div className="absolute left-[0px]">

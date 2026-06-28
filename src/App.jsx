@@ -9,6 +9,7 @@ import Splash from './layouts/Splash';
 import ShareContatent from './layouts/ShareContatent';
 import GroupPage from './pages/GroupPage';
 import Rootlayout from './layouts/Rootlayout';
+import Notifications from './pages/Notifications';
 
 
 const router = createBrowserRouter(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
     <Route path="home" element={<Home/>} ></Route>
     <Route path="grouppage" element={<GroupPage/>} ></Route>
     <Route path="setting" element={<Settings/>} ></Route>
+    <Route path="notifications" element={<Notifications/>} ></Route>
     </Route>
 </>
   )

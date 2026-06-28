@@ -24,7 +24,7 @@ return ( <section className="fixed bottom-0 left-0 w-full bg-white  shadow-lg z-
         )}
       </NavLink>
 
-      <NavLink to="/notification">
+      <NavLink to="/notifications">
         {({ isActive }) => (
           <div
             className={`flex flex-col items-center transition-all duration-300 ${
