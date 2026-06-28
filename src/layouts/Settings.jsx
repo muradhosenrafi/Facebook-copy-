@@ -15,8 +15,8 @@ import { HiMiniQrCode } from "react-icons/hi2";
 const Settings = () => {
   return (
     
-<section className="h-screen flex flex-col overflow-hidden">
-  <Container className="bg-[#000E08] w-full flex flex-col h-full overflow-hidden">
+<section className="min-h-screen">
+  <Container className="bg-[#000E08] w-full flex flex-col h-full">
 
 <div className="py-[52px] flex-shrink-0">
                 <div className="relative flex items-center justify-center pt-[61px]">
