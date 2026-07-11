@@ -1,7 +1,7 @@
 import { IoAddOutline } from "react-icons/io5";
 
 import Image from "./Image"; 
-import profile1 from "../assets/profilemin.png";
+// import profile1 from "../assets/profilemin.png";
 
 const Profile = ({className,profilleimg}) => {
   return (

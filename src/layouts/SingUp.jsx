@@ -4,17 +4,18 @@ import Infutbox from "../components/Infutbox";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,} from "firebase/auth";
-import { supabase } from "../lib/supabase";
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,} from "firebase/auth";
+// import { supabase } from "../lib/supabase";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
-
-
+import { getDatabase, push, ref, set } from "firebase/database";
+// import profile from "../assets/rafi.png"
 
 const SingUp = () => {
  const [loading, setLoading] = useState(false);
 
-// const auth = getAuth();
+const auth = getAuth();
+const db = getDatabase();
 
   let [name,setName]=useState("")
   let [email,setEmail]=useState("")
@@ -115,93 +116,49 @@ if(!characters.test(password)){
     // firebase conect
 
 
-  //  createUserWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-     
-  //  sendEmailVerification(auth.currentUser)
+   createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+   sendEmailVerification(auth.currentUser)
    
-  // // console.log(userCredential.user);
-  
-  //   toast.success("Account Created Successfully!");
-  //    setName("");
-  //     setEmail("");
-  //     setPassword("");
-  //     setConformPassword("");
-  //     setLoading(true)
-  //      navigate ("/login");
+  // console.log(userCredential.user);
 
-  // })
-  //  .catch((error) => {
+//firebase wright data ----
+    set(push(ref(db, 'users/')), {
+    username: name,
+    email: email,
+    profile : 'https://i.ibb.co.com/Y796hPPM/1777130735165-Photoroom.png',
+  });
+  //firebase wright data ----
+    toast.success("Account Created Successfully!");
+     setName("");
+      setEmail("");
+      setPassword("");
+      setConformPassword("");
+      setLoading(true)
+       navigate ("/login");
 
-  //     switch (error.code) {
-  //       case "auth/email-already-in-use":
-  //         toast.error("Email already in use!");
-  //         break;
-
-  //       case "auth/invalid-email":
-  //         toast.error("Invalid Email Address!");
-  //         break;
-
-  //       case "auth/weak-password":
-  //         toast.error("Password is too weak!");
-  //         break;
-
-  //     }
-
-  //   });
-
-
-  setLoading(true);
-
-supabase.auth
-  .signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: name,
-      },
-    },
   })
-  .then(({ data, error }) => {
-    setLoading(false);
+   .catch((error) => {
 
-
-console.log(data);
-console.log(error);
-
-    if (error) {
-      switch (error.message) {
-        case "User already registered":
+      switch (error.code) {
+        case "auth/email-already-in-use":
           toast.error("Email already in use!");
           break;
 
-        case "Invalid email":
+        case "auth/invalid-email":
           toast.error("Invalid Email Address!");
           break;
 
-        default:
-          toast.error(error.message);
+        case "auth/weak-password":
+          toast.error("Password is too weak!");
+          break;
+
       }
 
-      return;
-    }
-
-    toast.success("Account Created Successfully!");
-
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConformPassword("");
-
-    navigate("/login");
-  });
+    });
 
   }
 
-  // supabase-----
-
-  
 
   return (
     <section>
