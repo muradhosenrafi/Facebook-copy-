@@ -13,6 +13,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import ForgetPassword from "../components/ForgetPassword";
 import Loader from "../components/Loader";
 import { GoogleAuthProvider } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import {activeuser} from '../Slice/counterSlice'
 
 const Login = () => {
  
@@ -26,6 +28,8 @@ const [loading, setLoading] = useState(false);
 
   let [emailError, setEmailError] = useState("");
   let [passwordError, setPasswordError] = useState("");
+
+  const dispatch=useDispatch()
 
   // <Firebase conact start>
 
@@ -71,7 +75,9 @@ signInWithEmailAndPassword(auth, email, password)
     setTimeout(()=>{
       setLoading(true);
     },1000);
-
+    
+    dispatch(activeuser(userCredential.user))
+    
     setTimeout(()=>{
       navigate ("/home");
     },3000);

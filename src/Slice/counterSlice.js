@@ -3,16 +3,18 @@ import { createSlice } from '@reduxjs/toolkit'
 export const counterSlice = createSlice({
   name: 'user',
   initialState: {
-    value: 0,
+    value: null,
   },
   reducers: {
     activeuser: (state, action) => {
-     console.log(state.value);
-     console.log(action.payload);
+     state.value=action.payload
+
+    //  console.log(state.value);
+    //  console.log(action.payload);
      
      
 
-      state.value += 1
+    
     },
     
   },

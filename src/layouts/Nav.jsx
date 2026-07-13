@@ -9,8 +9,13 @@ import profile1 from "../assets/profilemin.png";
 import { useEffect, useState } from "react";
 
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
 
 const Nav = ({ className }) => {
+
+  let data=useSelector(state=>state.activeuser.value)
+
+
   ///---firebase Read data -----///
   const db = getDatabase();
   let [alluser, setAllUser] = useState([]);
@@ -19,7 +24,14 @@ const Nav = ({ className }) => {
     let arr = [];
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
-        arr.push(item.val());
+
+        if(item.val().email!=data.email){
+
+          arr.push(item.val());
+        }
+
+        
+
       });
       setAllUser(arr);
     });
@@ -28,17 +40,27 @@ const Nav = ({ className }) => {
   console.log(alluser);
 
   ///---firebase Read  data -----///
+
+
+
   return (
     <nav>
       <Container className={`bg-[#000E08] w-full min-h-screen   ${className}`}>
         <div className="flex justify-between items-center pt-[61px] px-[24px] pb-[40px] ">
           <SerchNav right="left-[60px]" />
           <h3 className="font-medium text-2xl font-robot text-[#ffff]">Home</h3>
-          <Image src={profile1} alt="profile png" />
+          {/* -----------parsonal profile ---- */}
+          {
+            alluser.map(item=>(
+              <div className="w-[58px] h-[58px] rounded-full ">
+                <Image className='rounded-full border-2 border-white' src={item.profile} alt="profile png" />
+              </div>
+            ))
+          }
         </div>
 
         <Flex className="justify-start gap-5 px-5 py-10">
-          {/* -----------parsonal profile---- */}
+          {/* -----------parsonal profile status ---- */}
           <div className="flex flex-col items-center">
             <div className="relative">
               <Image
@@ -61,7 +83,7 @@ const Nav = ({ className }) => {
           {/* -----------User profile----*/}
           {alluser.map((item) => (
               
-            <div className="flex flex-col items-center">
+            <div key={item.id}  className="flex flex-col items-center">
               <Image
                 className="w-[58px] h-[58px] rounded-full border-2 border-amber-400"
                 src={item.profile}
