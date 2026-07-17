@@ -14,7 +14,6 @@ import ShareContatent from "./layouts/ShareContatent";
 import GroupPage from "./pages/GroupPage";
 import Rootlayout from "./layouts/Rootlayout";
 import Notifications from "./pages/Notifications";
-import PrivateRoute from "./layouts/PrivateRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,38 +26,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<Splash />}></Route>
 
       <Route path="/" element={<Rootlayout />}>
-        <Route
-          path="home"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="grouppage"
-          element={
-            <PrivateRoute>
-              <GroupPage />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="setting"
-          element={
-            <PrivateRoute>
-              <Settings />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="notifications"
-          element={
-            <PrivateRoute>
-              <Notifications />
-            </PrivateRoute>
-          }
-        ></Route>
+        <Route path="home" element={<Home />}></Route>
+        <Route path="grouppage" element={<GroupPage />}></Route>
+        <Route path="setting" element={<Settings />}></Route>
+        <Route path="notifications" element={<Notifications />}></Route>
       </Route>
     </>,
   ),

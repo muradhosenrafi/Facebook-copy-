@@ -77,7 +77,10 @@ signInWithEmailAndPassword(auth, email, password)
     },1000);
     
     dispatch(activeuser(userCredential.user))
-    
+    // ---------ocalstorage setup-------
+         localStorage.setItem("loginifo",JSON.stringify(userCredential.user))
+
+
     setTimeout(()=>{
       navigate ("/home");
     },3000);
