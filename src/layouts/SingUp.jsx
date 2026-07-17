@@ -120,10 +120,10 @@ if(!characters.test(password)){
     .then((userCredential) => {
    sendEmailVerification(auth.currentUser)
    
-  // console.log(userCredential.user);
+  // console.log(userCredential.user.uid);
 
 //firebase wright data ----
-    set(push(ref(db, 'users/')), {
+    set(ref(db, 'users/' + userCredential.user.uid ),{
     username: name,
     email: email,
     profile : 'https://i.ibb.co.com/Y796hPPM/1777130735165-Photoroom.png',

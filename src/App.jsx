@@ -8,12 +8,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import FontPage from "./layouts/FontPage";
-import Settings from "./layouts/Settings";
 import Splash from "./layouts/Splash";
 import ShareContatent from "./layouts/ShareContatent";
 import GroupPage from "./pages/GroupPage";
 import Rootlayout from "./layouts/Rootlayout";
 import Notifications from "./pages/Notifications";
+import SettingsPage from "./pages/SettingsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Rootlayout />}>
         <Route path="home" element={<Home />}></Route>
         <Route path="grouppage" element={<GroupPage />}></Route>
-        <Route path="setting" element={<Settings />}></Route>
+        <Route path="setting" element={<SettingsPage />}></Route>
         <Route path="notifications" element={<Notifications />}></Route>
       </Route>
     </>,

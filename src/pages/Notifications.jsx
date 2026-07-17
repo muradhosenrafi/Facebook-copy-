@@ -4,9 +4,23 @@ import SerchNav from "../components/SerchNav"
 import NotificationCard from "../components/NotificationCard"
 import { IoChatboxEllipses } from "react-icons/io5";
 import { FaUserGroup } from "react-icons/fa6";
-
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
 const Notifications = () => {
+   let navigate=useNavigate()
+  let data = useSelector(state=>state.activeuser.value);
+
+  useEffect(()=>{
+if(data==null){
+  navigate('/')
+}
+
+
+  },[])
+
+
   return (
     <section>
         <Container>

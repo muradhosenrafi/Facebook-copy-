@@ -14,12 +14,12 @@ import {  useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
-  let Navigate=useNavigate()
+  let navigate=useNavigate()
   let data = useSelector(state=>state.activeuser.value);
 
   useEffect(()=>{
 if(data==null){
-  Navigate('/')
+  navigate('/')
 }
 
 
