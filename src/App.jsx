@@ -14,6 +14,7 @@ import GroupPage from "./pages/GroupPage";
 import Rootlayout from "./layouts/Rootlayout";
 import Notifications from "./pages/Notifications";
 import SettingsPage from "./pages/SettingsPage";
+import FriendRequest from "./layouts/FriendRequest";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="grouppage" element={<GroupPage />}></Route>
         <Route path="setting" element={<SettingsPage />}></Route>
         <Route path="notifications" element={<Notifications />}></Route>
+        <Route path="friendrequest" element={<FriendRequest/>}></Route>
       </Route>
     </>,
   ),

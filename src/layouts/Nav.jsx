@@ -3,6 +3,8 @@ import SerchNav from "../components/SerchNav";
 import Image from "../components/Image";
 import Flex from "../components/Flex";
 import { FaPlus } from "react-icons/fa";
+import { IoPersonAdd } from "react-icons/io5";
+
 
 import profile1 from "../assets/profilemin.png";
 // import profile2 from "../assets/profile3.png";
@@ -36,14 +38,15 @@ const Nav = ({ className }) => {
 
   ///---firebase Read  data -----///
 
+  let handeladdfriend =()=>{
+
+  }
   return (
     <nav>
       <Container className={`bg-[#000E08] w-full min-h-screen   ${className}`}>
         <div className="flex justify-between items-center pt-[61px] px-[24px] pb-[40px] ">
-          <SerchNav right="left-[60px]" />
-          <h3 className="font-medium text-2xl font-robot text-[#ffff]">Home</h3>
-          {/* -----------parsonal profile ---- */}
-          {alluser.map((item) => (
+ {/* -----------parsonal profile ---- */}
+             {alluser.map((item) => (
             <div className="w-[58px] h-[58px] rounded-full ">
               <Image
                 className="rounded-full border-2 border-white"
@@ -52,6 +55,13 @@ const Nav = ({ className }) => {
               />
             </div>
           ))}
+
+          <SerchNav right="left-[60px]" />
+          <h3 className="font-medium text-2xl font-robot text-[#ffff]">Home</h3>
+         
+       
+          <IoPersonAdd onClick={handeladdfriend} className="text-white text-2xln cursor-pointer"/>
+
         </div>
 
         <Flex className="justify-start gap-5 px-5 py-10">
