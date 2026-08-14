@@ -1,79 +1,195 @@
-import Image from "../components/Image"
-import Flex from "../components/Flex"
+import Image from "../components/Image";
+import Flex from "../components/Flex";
 
-import { FiTrash2 } from "react-icons/fi";
+import { FiTrash2, FiMoreVertical } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
+import { MdDone } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const MassageProfile = ({hedname,title,notification,time,profilleimg,className}) => {
-    const [open, setOpen] = useState(false);
-  return (
+const MassageProfile = ({
+  hedname,
+  title,
+  notification = 0,
+  time,
+  profilleimg,
+  className = "",
+}) => {
+  const [open, setOpen] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [read, setRead] = useState(false);
 
-<div className={`relative overflow-hidden ${className}`}>
-  {/* Action Buttons */}
-  
-  <div className="absolute inset-y-0 right-4 flex items-center gap-4">
-    <div className="w-[36px] h-[36px]  flex justify-center items-center rounded-full bg-black">
-      <IoNotifications className="text-white text-xs" />
-    </div>
-
-    <div className="w-[36px] h-[36px] rounded-full flex justify-center items-center bg-red-600">
-      <FiTrash2 className="text-white text-xs" />
-    </div>
-  </div>
-
-  {/* Main Card */}
-<motion.div
-drag="x"
-    dragConstraints={{ left: -140, right: 0 }}
-    animate={{ x: open ? -140 : 0 }}
-    onDragEnd={(event, info) => {
-    if (info.offset.x < -50) {
+  const handleDragEnd = (_, info) => {
+    if (info.offset.x < -60) {
       setOpen(true);
+    }
 
-    setTimeout(()=> {
-      setOpen(false); 
-    },500)
-}
-  }}
-    className="relative z-10 py-5 bg-white hover:bg-[#F1F6FA] duration-200"
-    >
+    if (info.offset.x > 60) {
+      setOpen(false);
+    }
+  };
 
-<div className="flex items-center justify-between gap-4 px-5">
-  
-  {/* Left: profile */}
-  <div className="flex items-center gap-3">
-    <Image src={profilleimg} alt="profile png" />
+  if (deleted) return null;
 
-    <div>
-      <h3 className="text-sm font-medium font-robot text-[20px] ">{hedname}</h3>
-      <p className="text-xs text-navtext font-robot font-normal">{title}</p>
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+
+      {/* ================= Action Buttons ================= */}
+      <div className="absolute inset-y-0 right-3 flex items-center gap-2">
+
+        <button
+          type="button"
+          onClick={() => setRead(true)}
+          className="w-9 h-9 rounded-full bg-black flex items-center justify-center"
+        >
+          {read ? (
+            <MdDone className="text-white text-base" />
+          ) : (
+            <IoNotifications className="text-white text-base" />
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setDeleted(true)}
+          className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center"
+        >
+          <FiTrash2 className="text-white text-base" />
+        </button>
+
+      </div>
+
+      {/* ================= Main Card ================= */}
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: -125, right: 0 }}
+        dragElastic={0.1}
+        animate={{ x: open ? -125 : 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 30,
+        }}
+        onDragEnd={handleDragEnd}
+        onClick={() => setOpen(false)}
+        className={`
+          relative
+          z-10
+          w-full
+          px-5
+          py-3
+          border-b
+          border-[#E9EEEE]
+          cursor-pointer
+          ${
+            read
+              ? "bg-white"
+              : "bg-[#F8FBFD]"
+          }
+        `}
+      >
+        <div className="flex items-center justify-between gap-3">
+
+          {/* Profile + Message */}
+          <div className="flex items-center gap-3 min-w-0">
+
+            <div className="relative shrink-0">
+
+              <Image
+                src={profilleimg}
+                alt={`${hedname} profile`}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+
+              <span
+                className="
+                  absolute
+                  bottom-0
+                  right-0
+                  w-3
+                  h-3
+                  rounded-full
+                  bg-green-500
+                  border-2
+                  border-white
+                "
+              />
+
+            </div>
+
+            <div className="min-w-0">
+              <h3
+                className={`
+                  truncate
+                  text-[15px]
+                  font-robot
+                  ${
+                    read
+                      ? "font-medium text-black"
+                      : "font-bold text-black"
+                  }
+                `}
+              >
+                {hedname}
+              </h3>
+
+              <p
+                className="
+                  mt-1
+                  truncate
+                  max-w-[180px]
+                  sm:max-w-[300px]
+                  text-xs
+                  text-navtext
+                  font-robot
+                "
+              >
+                {title}
+              </p>
+            </div>
+
+          </div>
+
+          {/* Time + Notification */}
+          <div className="shrink-0 flex items-center gap-2">
+
+            <Flex className="flex-col items-end">
+
+              <p className="text-[10px] sm:text-[11px] text-navtext font-robot">
+                {time}
+              </p>
+
+              {!read && notification > 0 && (
+                <span
+                  className="
+                    mt-1
+                    w-5
+                    h-5
+                    rounded-full
+                    bg-[#F04A4C]
+                    text-white
+                    text-[10px]
+                    flex
+                    items-center
+                    justify-center
+                  "
+                >
+                  {notification}
+                </span>
+              )}
+
+            </Flex>
+
+            <FiMoreVertical className="text-gray-400 text-lg" />
+
+          </div>
+
+        </div>
+
+      </motion.div>
+
     </div>
-  </div>
+  );
+};
 
-
-  <div className="flex items-center gap-3">
-   <Flex className= "flex-col">
-     <p className="text-xs text-navtext font-robot font-normal">{time}</p>
-
- <div className="flex justify-end pt-2">
-       <div className="w-[22px] h-[22px] bg-[#F04A4C] text-white text-xs font-medium flex items-center font-robot justify-center rounded-full">
-     <p>{notification}</p>
-    </div>
- </div>
-   </Flex>
-  </div>
-
-</div>
-
-</motion.div>
-</div>
-
-  )
-}
-
-export default MassageProfile
-
-
- 
+export default MassageProfile;

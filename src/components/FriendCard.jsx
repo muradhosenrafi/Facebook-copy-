@@ -1,65 +1,57 @@
+import { FaUserPlus } from "react-icons/fa";
 
-
-const FriendCard = ({
-  image,
-  name,
-  mutualFriends,
-  primaryText = "Confirm",
-  secondaryText = "Delete",
-  type = "confirm",
-  onPrimaryClick,
-  onSecondaryClick
-}) => {
+const FridenCard = ({ name, profile }) => {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.2)] hover:shadow-md transition-shadow duration-200 flex flex-col w-full">
-      {/* Profile Image (1:1 Aspect Ratio) */}
-      <div className="relative w-full pt-[100%] bg-gray-200">
+    <div className="w-full px-5 py-3">
+
+      <div className="w-full bg-[#111A15] rounded-xl p-4 flex items-center gap-4">
+
         <img
-          src={image}
-          alt={name}
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          src={profile}
+          alt="profile"
+          className="
+            w-14
+            h-14
+            rounded-full
+            object-cover
+            border-2
+            border-amber-400
+            shrink-0
+          "
         />
-      </div>
 
-      {/* Card Content */}
-      <div className="p-3 flex flex-col justify-between flex-grow">
-        <div>
-          {/* User Name */}
-          <h3 className="text-[15px] font-semibold text-[#050505] truncate leading-snug">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-white font-medium truncate">
             {name}
-          </h3>
+          </h2>
 
-          {/* Mutual Friends / Followers Text */}
-          <p className="text-[13px] text-[#65676b] truncate mt-0.5 min-h-[18px]">
-            {mutualFriends || ''}
+          <p className="text-xs text-gray-400 mt-1">
+            Friend
           </p>
         </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col gap-1.5 mt-3">
-          {/* Primary Button */}
-          <button
-            onClick={onPrimaryClick}
-            className={`w-full py-1.5 rounded-md text-[15px] font-semibold transition-colors active:scale-[0.98] ${
-              type === 'confirm'
-                ? 'bg-[#1877f2] hover:bg-[#166fe5] text-white'
-                : 'bg-[#e7f3ff] hover:bg-[#dbe7f2] text-[#1877f2]'
-            }`}
-          >
-            {primaryText}
-          </button>
+        <button
+          className="
+            w-10
+            h-10
+            rounded-full
+            bg-blue-600
+            text-white
+            flex
+            items-center
+            justify-center
+            shrink-0
+            hover:bg-blue-700
+            transition
+          "
+        >
+          <FaUserPlus />
+        </button>
 
-          {/* Secondary Button */}
-          <button
-            onClick={onSecondaryClick}
-            className="w-full py-1.5 rounded-md text-[15px] font-semibold bg-[#e4e6eb] hover:bg-[#d8dadf] text-[#050505] transition-colors active:scale-[0.98]"
-          >
-            {secondaryText}
-          </button>
-        </div>
       </div>
+
     </div>
   );
 };
 
-export default FriendCard;
+export default FridenCard;

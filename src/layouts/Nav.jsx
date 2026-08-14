@@ -4,7 +4,7 @@ import Image from "../components/Image";
 import Flex from "../components/Flex";
 import { FaPlus } from "react-icons/fa";
 import { IoPersonAdd } from "react-icons/io5";
-
+import { useNavigate } from "react-router-dom";
 
 import profile1 from "../assets/profilemin.png";
 // import profile2 from "../assets/profile3.png";
@@ -16,15 +16,34 @@ import { useSelector } from "react-redux";
 const Nav = ({ className }) => {
   let data = useSelector((state) => state.activeuser.value);
 
+ 
+ const navigate = useNavigate();
+
   ///---firebase Read data -----///
   const db = getDatabase();
+   let [user, setUser] = useState([]);
+  useEffect(() => {
+    const starCountRef = ref(db, "users/");
+    let arr = [];
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        if (item.key == data.uid) {
+          arr.push(item.val());
+        }
+        // console.log(item.key);
+        // console.log(data.uid);
+      });
+      setUser(arr);
+    });
+  }, []);
+
   let [alluser, setAllUser] = useState([]);
   useEffect(() => {
     const starCountRef = ref(db, "users/");
     let arr = [];
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
-        if (item.key!== data.uid) {
+        if (item.key !== data.uid) {
           arr.push(item.val());
         }
         // console.log(item.key);
@@ -37,30 +56,43 @@ const Nav = ({ className }) => {
   console.log(alluser);
 
   ///---firebase Read  data -----///
-
+// FriendRequest 
   let handeladdfriend =()=>{
+
+     navigate("/friendlist");
 
   }
   return (
     <nav>
-      <Container className={`bg-[#000E08] w-full min-h-screen   ${className}`}>
-        <div className="flex justify-between items-center pt-[61px] px-[24px] pb-[40px] ">
+      <Container className={`bg-[#000E08] w-full   ${className}`}>
+        <div className="flex relative  items-center gap-5 pt-[61px] px-[24px] pb-[40px] ">
  {/* -----------parsonal profile ---- */}
-             {alluser.map((item) => (
+             {user.map((item) => (
             <div className="w-[58px] h-[58px] rounded-full ">
               <Image
                 className="rounded-full border-2 border-white"
                 src={item.profile}
                 alt="profile png"
               />
+       
             </div>
+            
           ))}
 
-          <SerchNav right="left-[60px]" />
-          <h3 className="font-medium text-2xl font-robot text-[#ffff]">Home</h3>
-         
-       
-          <IoPersonAdd onClick={handeladdfriend} className="text-white text-2xln cursor-pointer"/>
+<div className=" flex items-center justify-between w-full">
+  
+  <SerchNav right=" left-[60px] z-50" />
+
+  <h3 className="absolute left-1/2 -translate-x-1/2 font-medium text-2xl font-robot text-white">
+    Home
+  </h3>
+
+  <IoPersonAdd
+    onClick={handeladdfriend}
+    className="text-white text-2xl cursor-pointer"
+  />
+
+</div>
 
         </div>
 
@@ -86,7 +118,7 @@ const Nav = ({ className }) => {
           {/* -----------parsonal profile----*/}
 
           {/* -----------User profile----*/}
-          {alluser.map((item) => (
+          {alluser.slice(0, 4).map((item) => (
             <div key={item.id} className="flex flex-col items-center">
               <Image
                 className="w-[58px] h-[58px] rounded-full border-2 border-amber-400"

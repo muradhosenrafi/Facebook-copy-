@@ -13,7 +13,7 @@ const SerchNav = ({right,className}) => {
 
       <div
         onClick={() => setOpen(true)}
-        className="w-[44px] h-[44px] rounded-full bg- border border-text flex items-center justify-center cursor-pointer"
+        className="w-[44px] h-[44px] rounded-full  border border-text flex items-center justify-center cursor-pointer"
       >
         <IoSearch className={`text-[22px] text-text ${className}`} />
       </div>
