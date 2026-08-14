@@ -44,7 +44,7 @@ const Nav = ({ className }) => {
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
         if (item.key !== data.uid) {
-          arr.push(item.val());
+          arr.push({...item.val(),id:item.key});
         }
         // console.log(item.key);
         // console.log(data.uid);
@@ -53,7 +53,7 @@ const Nav = ({ className }) => {
     });
   }, []);
 
-  console.log(alluser);
+  // console.log(alluser);
 
   ///---firebase Read  data -----///
 // FriendRequest 

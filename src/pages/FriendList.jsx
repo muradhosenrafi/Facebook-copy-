@@ -3,14 +3,15 @@ import FridenCard from "../components/FridenCard";
 import FriendRequestActp from "../components/FriendRequestActp";
 import SerchNav from "../components/SerchNav";
 
+
+
 import { useEffect, useState } from "react";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import { useSelector } from "react-redux";
 
 export const FriendList = () => {
-  const [friendLimit, setFriendLimit] = useState(5);
   const [requestLimit, setRequestLimit] = useState(5);
-
+  const [friendLimit, setFriendLimit] = useState(5);
   const [alluser, setAllUser] = useState([]);
 
   const data = useSelector((state) => state.activeuser.value);
@@ -27,7 +28,7 @@ export const FriendList = () => {
       const arr = [];
 
       snapshot.forEach((item) => {
-        // Current logged-in user বাদ
+        // Current logged-in user 
         if (item.key !== data.uid) {
           arr.push({
             id: item.key,
@@ -42,13 +43,23 @@ export const FriendList = () => {
     return () => unsubscribe();
   }, [db, data?.uid]);
 
-  console.log("Firebase Users:", alluser);
+  // console.log("All Registered Users:", alluser);
 
-  // ================= Friend Data =================
-  const friendData = alluser;
+ let handeladdnow =(item)=>{
+  
+   set(ref(db, 'friendrequestlist/'), {
+    SenderName: data.displayName,
+    // // SenderImage : imageUrl,
+    Senderid: data.uid,
 
-  // ================= Request Data =================
-  const requestData = alluser;
+    ReceiverName:item.username,
+    receiverid:item.id,
+    // ReceverImage:
+  });
+    console.log(item);
+    
+  }
+
 
   return (
     <Container className="bg-[#000E08] w-full min-h-screen">
@@ -67,27 +78,30 @@ export const FriendList = () => {
       {/* ================= Friends ================= */}
       <div className="mt-8">
 
-        {friendData
+        {alluser
           .slice(0, friendLimit)
           .map((item) => (
             <FridenCard
               key={item.id}
               name={item.username}
               profile={item.profile}
+              onClickadd={()=>handeladdnow (item)}
             />
           ))}
 
-        {/* More / Close */}
-        {friendData.length > 5 && (
+        {/* ================= More / Close ================= */}
+        {alluser.length > 5 && (
           <div className="flex justify-center mt-5">
 
             <button
               onClick={() => {
-                if (friendLimit >= friendData.length) {
+                if (friendLimit >= alluser.length) {
+               
                   setFriendLimit(5);
                 } else {
+                 
                   setFriendLimit((prev) =>
-                    Math.min(prev + 5, friendData.length)
+                    Math.min(prev + 5, alluser.length)
                   );
                 }
               }}
@@ -102,7 +116,7 @@ export const FriendList = () => {
                 transition
               "
             >
-              {friendLimit >= friendData.length ? "Close" : "More"}
+              {friendLimit >= alluser.length ? "Close" : "More"}
             </button>
 
           </div>
@@ -111,57 +125,58 @@ export const FriendList = () => {
       </div>
 
       {/* ================= Request ================= */}
-      <div className="mt-10 pb-10">
+     <div className="mt-10 pb-10">
 
-        <h3 className="flex justify-center font-medium text-2xl font-robot text-white">
-          Request
-        </h3>
+  <h3 className="flex justify-center font-medium text-2xl font-robot text-white">
+    Request
+  </h3>
 
-        <div className="mt-5">
+  <div className="mt-5">
 
-          {requestData
-            .slice(0, requestLimit)
-            .map((item) => (
-              <FriendRequestActp
-                key={item.id}
-                name={item.username}
-                profile={item.profile}
-              />
-            ))}
+    {alluser
+      .slice(0, requestLimit)
+      .map((item) => (
+        <FriendRequestActp
+          key={item.id}
+          name={item.username}
+          profile={item.profile}
+        />
+      ))}
 
-          {/* More / Close */}
-          {requestData.length > 5 && (
-            <div className="flex justify-center mt-5">
+   
+    {alluser.length > 5 && (
+      <div className="flex justify-center mt-5">
 
-              <button
-                onClick={() => {
-                  if (requestLimit >= requestData.length) {
-                    setRequestLimit(5);
-                  } else {
-                    setRequestLimit((prev) =>
-                      Math.min(prev + 5, requestData.length)
-                    );
-                  }
-                }}
-                className="
-                  px-6
-                  py-2
-                  bg-white
-                  text-black
-                  rounded-lg
-                  font-medium
-                  hover:bg-gray-200
-                  transition
-                "
-              >
-                {requestLimit >= requestData.length ? "Close" : "More"}
-              </button>
+        <button
+          onClick={() => {
+            if (requestLimit >= alluser.length) {
+              setRequestLimit(5);
+            } else {
+              setRequestLimit((prev) =>
+                Math.min(prev + 5, alluser.length)
+              );
+            }
+          }}
+          className="
+            px-6
+            py-2
+            bg-white
+            text-black
+            rounded-lg
+            font-medium
+            hover:bg-gray-200
+            transition
+          "
+        >
+          {requestLimit >= alluser.length ? "Close" : "More"}
+        </button>
 
-            </div>
-          )}
-
-        </div>
       </div>
+    )}
+
+  </div>
+
+</div>
 
     </Container>
   );

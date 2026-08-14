@@ -9,10 +9,15 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { get, getDatabase, push, ref, set } from "firebase/database";
 import toast from "react-hot-toast";
+import { activeuser } from "../Slice/counterSlice";
+import { useDispatch } from "react-redux";
 
 const FontPage = () => {
+
+ 
+    
   const auth = getAuth();
   const db = getDatabase();
   const navigate = useNavigate();
@@ -33,19 +38,34 @@ const FontPage = () => {
     }, 1000);
   };
 
+    // let [alluser,setAllUser] = useState([])
+
+  const dispatch=useDispatch()
+
   const handleGoogle = () => {
     const provider = new GoogleAuthProvider();
 
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
+        const userRef = ref(db, "users/" + user.uid);
 
-        set(push(ref(db, "users")), {
-          username: user.displayName,
-          email: user.email,
-          profile:"https://i.ibb.co.com/Y796hPPM/1777130735165-Photoroom.png",
-        });
-        console.log(user.photoURL);
+        // uid diye direct check kora - Firebase e already exist kina
+        const snapshot = await get(userRef);
+
+        if (!snapshot.exists()) {
+          // notun user - database e write koro
+          await set(userRef, {
+            username: user.displayName,
+            email: user.email,
+            profile: user.photoURL || "https://i.ibb.co.com/Y796hPPM/1777130735165-Photoroom.png",
+          });
+        }
+
+        // notun hok ba purono hok - dispatch/localStorage shob shomoy chalbe
+        dispatch(activeuser(user));
+        localStorage.setItem("userinfo", JSON.stringify(user));
+
         toast.success("Login Successful");
 
         setTimeout(() => {

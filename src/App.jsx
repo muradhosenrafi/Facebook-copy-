@@ -1,6 +1,7 @@
 import Login from "./layouts/Login";
 import Home from "./pages/Home";
 import SingUp from "./layouts/SingUp";
+
 import {
   createRoutesFromElements,
   createBrowserRouter,

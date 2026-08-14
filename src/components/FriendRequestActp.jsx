@@ -1,11 +1,13 @@
-const FriendRequestActp = ({ name, profile }) => {
+import rafi from "../assets/rafi.png"
+
+const FriendRequestActp = () => {
   return (
     <div className="w-full px-5 py-3">
 
       <div className="w-full bg-[#111A15] rounded-xl p-4 flex items-center gap-4">
 
         <img
-          src={profile}
+          src={rafi}
           alt="profile"
           className="
             w-14
@@ -20,7 +22,7 @@ const FriendRequestActp = ({ name, profile }) => {
 
         <div className="flex-1 min-w-0">
           <h2 className="text-white font-medium truncate">
-            {name}
+           Rafi
           </h2>
 
           <p className="text-xs text-gray-400 mt-1">
