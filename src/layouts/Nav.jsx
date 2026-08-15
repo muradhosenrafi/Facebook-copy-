@@ -23,9 +23,9 @@ const Nav = ({ className }) => {
   const db = getDatabase();
    let [user, setUser] = useState([]);
   useEffect(() => {
-    const starCountRef = ref(db, "users/");
+    const userRef = ref(db, "users/");
     let arr = [];
-    onValue(starCountRef, (snapshot) => {
+    onValue(userRef, (snapshot) => {
       snapshot.forEach((item) => {
         if (item.key == data.uid) {
           arr.push(item.val());

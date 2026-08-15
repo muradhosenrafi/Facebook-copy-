@@ -1,67 +1,50 @@
-import rafi from "../assets/rafi.png"
+import { getDatabase, ref, remove, set } from "firebase/database";
+import { useSelector } from "react-redux";
+import rafi from "../assets/rafi.png";
 
-const FriendRequestActp = () => {
+const FriendRequestActp = ({ id, name, profile, senderid }) => {
+  const db = getDatabase();
+  const data = useSelector((state) => state.activeuser.value);
+
+  const handleAccept = () => {
+    set(ref(db, `friends/${data.uid}/${senderid}`), true);
+    set(ref(db, `friends/${senderid}/${data.uid}`), true);
+    remove(ref(db, `friendrequestlist/${id}`));
+  };
+
+  const handleCancel = () => {
+    remove(ref(db, `friendrequestlist/${id}`));
+  };
+
   return (
-    <div className="w-full px-5 py-3">
-
-      <div className="w-full bg-[#111A15] rounded-xl p-4 flex items-center gap-4">
-
+    <div className="pt-2">
+      <div className="w-full max-w-md bg-[#1f1f1f] rounded-xl px-4 py-4 flex items-center gap-4 shadow-lg">
         <img
-          src={rafi}
-          alt="profile"
-          className="
-            w-14
-            h-14
-            rounded-full
-            object-cover
-            border-2
-            border-green-400
-            shrink-0
-          "
+          src={profile || rafi}
+          alt="request profile"
+          className="w-14 h-14 rounded-full object-cover border-2 border-gray-600"
         />
 
-        <div className="flex-1 min-w-0">
-          <h2 className="text-white font-medium truncate">
-           Rafi
-          </h2>
+        <div className="flex-1">
+          <h2 className="text-white text-base font-semibold">{name}</h2>
 
-          <p className="text-xs text-gray-400 mt-1">
-            wants to be your friend
-          </p>
+          <div className="flex items-center gap-2 mt-3">
+            <button
+              onClick={handleAccept}
+              className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition duration-200"
+            >
+              Accept
+            </button>
+
+            <button
+              onClick={handleCancel}
+              className="px-4 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium transition duration-200"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-
-        <div className="flex gap-2">
-
-          <button
-            className="
-              px-3
-              py-2
-              bg-blue-600
-              text-white
-              text-xs
-              rounded-lg
-            "
-          >
-            Accept
-          </button>
-
-          <button
-            className="
-              px-3
-              py-2
-              bg-gray-700
-              text-white
-              text-xs
-              rounded-lg
-            "
-          >
-            Cancel
-          </button>
-
-        </div>
-
       </div>
-
     </div>
   );
 };
