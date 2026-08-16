@@ -7,6 +7,8 @@ import { MdDone } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+
+
 const MassageProfile = ({
   hedname,
   title,
@@ -19,8 +21,11 @@ const MassageProfile = ({
   const [deleted, setDeleted] = useState(false);
   const [read, setRead] = useState(false);
 
-  const handleDragEnd = (_, info) => {
-    if (info.offset.x < -60) {
+    const [showMenu, setShowMenu] = useState(false);
+    const [blocked, setBlocked] = useState(false);
+
+  const handleDragEnd = ( _, info) => {
+    if (info.offset.x < - 60) {
       setOpen(true);
     }
 
@@ -30,6 +35,14 @@ const MassageProfile = ({
   };
 
   if (deleted) return null;
+
+
+
+
+  let handelBlock =()=>{
+   
+    
+  }
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
@@ -180,12 +193,56 @@ const MassageProfile = ({
 
             </Flex>
 
-            <FiMoreVertical className="text-gray-400 text-lg" />
+      <div className="relative">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMenu((prev) => !prev);
+                }}
+              >
+                <FiMoreVertical className="text-gray-400 text-lg" />
+              </button>
+      
 
+ {showMenu && (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="
+                    absolute
+                    right-7
+                    top-0
+                    z-20
+                    bg-white
+                    shadow-lg
+                    rounded-lg
+                    border
+                    border-gray-200
+                    overflow-hidden
+                  "
+                >
+                  <button
+                    type="button"
+                    onClick={handelBlock}
+                    className="
+                      px-4
+                      py-2
+                      text-sm
+                      text-white
+                      bg-red-700
+                      font-robot
+                      whitespace-nowrap
+                      hover:bg-red-600
+                    "
+                  >
+                    Block
+                  </button>
+                </div>
+              )}
           </div>
 
         </div>
-
+      </div>
       </motion.div>
 
     </div>
