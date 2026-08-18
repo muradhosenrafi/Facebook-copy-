@@ -11,8 +11,8 @@ export const FriendList = () => {
   const [friendLimit, setFriendLimit] = useState(5);
   const [alluser, setAllUser] = useState([]);
   const [requests, setRequests] = useState([]);
-  const [sentRequests, setSentRequests] = useState([]); // যাদের কাছে request পাঠানো হয়েছে (pending)
-  const [friendsList, setFriendsList] = useState([]);   // যারা ইতিমধ্যে friend
+  const [sentRequests, setSentRequests] = useState([]); 
+  const [friendsList, setFriendsList] = useState([]);   
 
   const data = useSelector((state) => state.activeuser.value);
 
@@ -37,7 +37,7 @@ export const FriendList = () => {
     return () => unsubscribe();
   }, [db, data?.uid]);
 
-  // ================= Friend Requests (যারা আমাকে পাঠিয়েছে) =================
+  // ================= Friend Requests  =================
   useEffect(() => {
     if (!data?.uid) return;
 
@@ -57,7 +57,7 @@ export const FriendList = () => {
     return () => unsubscribe();
   }, [db, data?.uid]);
 
-  // ================= আমার পাঠানো Requests (pending চেক করার জন্য) =================
+  // =================  Requests (pending  =================
   useEffect(() => {
     if (!data?.uid) return;
 
@@ -77,7 +77,7 @@ export const FriendList = () => {
     return () => unsubscribe();
   }, [db, data?.uid]);
 
-  // ================= আমার Friends List =================
+  // ================= Friends List =================
   useEffect(() => {
     if (!data?.uid) return;
 
